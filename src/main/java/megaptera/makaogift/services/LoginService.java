@@ -21,9 +21,9 @@ public class LoginService {
 
     public User login(UserName userName, String password) {
         User user = userRepository.findByUserName(userName)
-                .orElseThrow(()-> new LogInFailed(userName));
+                .orElseThrow(() -> new LogInFailed(userName));
 
-        if(!user.authenticate(password,passwordEncoder)){
+        if (!user.authenticate(password, passwordEncoder)) {
             throw new LogInFailed(password);
         }
 

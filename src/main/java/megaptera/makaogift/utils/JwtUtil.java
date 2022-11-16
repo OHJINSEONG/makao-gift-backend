@@ -25,7 +25,7 @@ public class JwtUtil {
     public UserName decode(String token) {
         JWTVerifier verifier = JWT.require(algorithm).build();
         DecodedJWT verify = verifier.verify(token);
-        String value = verify.getClaim("accountNumber").asString();
+        String value = verify.getClaim("userName").asString();
         return new UserName(value);
     }
 }

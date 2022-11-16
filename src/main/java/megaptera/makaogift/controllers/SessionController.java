@@ -1,14 +1,22 @@
 package megaptera.makaogift.controllers;
 
+import megaptera.makaogift.dtos.ErrorDto;
+import megaptera.makaogift.dtos.LoginErrorDto;
 import megaptera.makaogift.dtos.LoginRequestDto;
 import megaptera.makaogift.dtos.LoginResultDto;
+import megaptera.makaogift.dtos.SignUpErrorDto;
+import megaptera.makaogift.exceptions.LogInFailed;
+import megaptera.makaogift.exceptions.SignUpFailed;
 import megaptera.makaogift.models.User;
 import megaptera.makaogift.models.UserName;
 import megaptera.makaogift.services.LoginService;
 import megaptera.makaogift.utils.JwtUtil;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -22,7 +30,8 @@ public class SessionController {
     }
 
     @PostMapping("/session")
-    public LoginResultDto session(
+    @ResponseStatus(HttpStatus.CREATED)
+    public LoginResultDto login(
             @Validated @RequestBody LoginRequestDto loginRequestDto
     ) {
         UserName userName = new UserName(loginRequestDto.getUserName());
@@ -32,6 +41,12 @@ public class SessionController {
 
         String accessToken = jwtUtil.encode(userName);
 
-        return new LoginResultDto(accessToken, user.userName(), user.name(), user.amount());
+        return new LoginResultDto(accessToken, user.name(), user.amount());
+    }
+
+    @ExceptionHandler(LogInFailed.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorDto LoginFailed(){
+        return new LoginErrorDto();
     }
 }

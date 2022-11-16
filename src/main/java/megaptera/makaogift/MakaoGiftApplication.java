@@ -22,7 +22,7 @@ public class MakaoGiftApplication {
 		SpringApplication.run(MakaoGiftApplication.class, args);
 	}
 
-	//http://locaalhost:8000/h2-console
+	//http://localhost:8000/h2-console
 
 	@Bean
 	public WebSecurityCustomizer ignoringCustomizer() {
