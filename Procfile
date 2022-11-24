@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -Dspring.profiles.active=production -jar build.libs/makao-gift-0.0.1-SNAPSHOT.jar
+web: java -Dserver.port=$PORT -Dspring.profiles.active=production -jar build/libs/makao-gift-0.0.1-SNAPSHOT.jar
