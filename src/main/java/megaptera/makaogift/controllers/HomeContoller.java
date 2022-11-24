@@ -27,6 +27,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class HomeContoller {
     @GetMapping("/")
     public String home() {
-        return "hi";
+        return "hi~";
     }
 }
