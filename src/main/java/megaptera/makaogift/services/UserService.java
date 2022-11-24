@@ -1,6 +1,5 @@
 package megaptera.makaogift.services;
 
-import java.util.Optional;
 import megaptera.makaogift.dtos.UserDto;
 import megaptera.makaogift.exceptions.SignUpFailed;
 import megaptera.makaogift.models.User;
@@ -30,7 +29,7 @@ public class UserService {
             throw new SignUpFailed(password);
         }
         User user = new User(null, userName, name, 50000L);
-        user.changePassword(password,passwordEncoder);
+        user.changePassword(password, passwordEncoder);
 
         userRepository.save(user);
 

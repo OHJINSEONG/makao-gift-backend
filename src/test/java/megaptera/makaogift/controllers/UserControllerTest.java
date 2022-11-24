@@ -49,7 +49,6 @@ class UserControllerTest {
                 .willThrow(new SignUpFailed(wrongReconfirmPassword));
     }
 
-
     @Test
     void createSuccess() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/users")

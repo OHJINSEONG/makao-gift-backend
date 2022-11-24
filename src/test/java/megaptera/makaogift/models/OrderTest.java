@@ -17,7 +17,8 @@ class OrderTest {
                 "한우",
                 "세종",
                 "오진성"
-                , "맛있게먹어");
+                , "맛있게먹어"
+                , "image");
 
         OrderDto orderDto = order.toDto();
 
@@ -32,7 +33,8 @@ class OrderTest {
                 "한우",
                 "세종",
                 "오진성"
-                , "맛있게먹어");
+                , "맛있게먹어",
+                "image");
 
         OrderResultDto orderResultDto = order.toResultDto();
 

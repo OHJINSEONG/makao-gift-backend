@@ -23,12 +23,12 @@ class ProductServiceTest {
     @Test
     void productsListWithOnePage() {
         int inputPage = 1;
-        Sort sort = Sort.by("CreateAt").descending();
+        Sort sort = Sort.by("id").descending();
         Pageable pageable = PageRequest.of(inputPage - 1, 8, sort);
 
         List<Product> products = List.of(
-                new Product(1L, "소고기", 5000L),
-                new Product(2L, "덤벨", 20000L)
+                new Product(10000L, "소고기", "한국", "맛있음", "이미지"),
+                new Product(20000L, "닭가슴살", "한국", "맛없음", "이미지")
         );
 
         Page page = new PageImpl(products, pageable, 8);
@@ -36,7 +36,6 @@ class ProductServiceTest {
         productRepository = mock(ProductRepository.class);
         given(productRepository.findAll(pageable))
                 .willReturn(page);
-
 
         productService = new ProductService(productRepository);
 
@@ -48,21 +47,20 @@ class ProductServiceTest {
 
     @Test
     void productsListTwoPage() {
-        int inputPage = 1;
-        Sort sort = Sort.by("CreateAt").descending();
-        Pageable pageable = PageRequest.of(inputPage - 1, 8, sort);
+        Sort sort = Sort.by("id").descending();
+        Pageable pageable = PageRequest.of(0, 8, sort);
 
         List<Product> products = List.of(
-                new Product(1L, "소고기", 5000L),
-                new Product(2L, "덤벨", 20000L),
-                new Product(3L, "소고기", 5000L),
-                new Product(4L, "덤벨", 20000L),
-                new Product(5L, "소고기", 5000L),
-                new Product(6L, "덤벨", 20000L),
-                new Product(7L, "소고기", 5000L),
-                new Product(8L, "덤벨", 20000L),
-                new Product(9L, "소고기", 5000L),
-                new Product(10L, "덤벨", 20000L)
+                new Product(10000L, "소고기", "한국", "맛있음", "이미지"),
+                new Product(10000L, "덤벨", "한국", "맛있음", "이미지"),
+                new Product(10000L, "소고기", "한국", "맛있음", "이미지"),
+                new Product(10000L, "덤벨", "한국", "맛있음", "이미지"),
+                new Product(10000L, "소고기", "한국", "맛있음", "이미지"),
+                new Product(10000L, "덤벨", "한국", "맛있음", "이미지"),
+                new Product(10000L, "소고기", "한국", "맛있음", "이미지"),
+                new Product(10000L, "덤벨", "한국", "맛있음", "이미지"),
+                new Product(10000L, "소고기", "한국", "맛있음", "이미지"),
+                new Product(10000L, "덤벨", "한국", "맛있음", "이미지")
         );
 
         Page<Product> page = new PageImpl<>(products, pageable, 10);
@@ -73,7 +71,7 @@ class ProductServiceTest {
 
         productService = new ProductService(productRepository);
 
-        ProductsDto productsDto = productService.list(inputPage);
+        ProductsDto productsDto = productService.list(1);
 
         assertThat(productsDto.getProductDtos()).hasSize(10);
         assertThat(page.getTotalPages()).isEqualTo(2);

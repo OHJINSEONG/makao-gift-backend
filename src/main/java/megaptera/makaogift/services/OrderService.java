@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import megaptera.makaogift.dtos.OrderDto;
 import megaptera.makaogift.dtos.OrderRegisterDto;
-import megaptera.makaogift.dtos.OrderResultDto;
 import megaptera.makaogift.dtos.OrdersDto;
 import megaptera.makaogift.dtos.PageDto;
 import megaptera.makaogift.models.Order;
@@ -55,14 +54,13 @@ public class OrderService {
                 orderRegisterDto.getTitle(),
                 orderRegisterDto.getAddress(),
                 orderRegisterDto.getReceiver(),
-                orderRegisterDto.getMessage());
+                orderRegisterDto.getMessage(),
+                orderRegisterDto.getImage());
 
         orderRepository.save(order);
     }
 
-    public OrderResultDto findOrder(Long id) {
-        Order order = orderRepository.getReferenceById(id);
-
-        return order.toResultDto();
+    public Order findOrder(Long id) {
+        return orderRepository.getReferenceById(id);
     }
 }

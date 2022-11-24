@@ -2,32 +2,28 @@ package megaptera.makaogift.dtos;
 
 public class ProductDto {
     private Long id;
-    private String name;
     private Long price;
     private String title;
     private String manufacturer;
     private String imformation;
+    private String image;
 
     public ProductDto(Long id,
-                      String name,
                       Long price,
                       String title,
                       String manufacturer,
-                      String imformation) {
+                      String imformation,
+                      String image) {
         this.id = id;
-        this.name = name;
         this.price = price;
         this.title = title;
         this.manufacturer = manufacturer;
         this.imformation = imformation;
+        this.image = image;
     }
 
     public Long getId() {
         return id;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public Long getPrice() {
@@ -44,5 +40,9 @@ public class ProductDto {
 
     public String getImformation() {
         return imformation;
+    }
+
+    public String getImage() {
+        return image;
     }
 }

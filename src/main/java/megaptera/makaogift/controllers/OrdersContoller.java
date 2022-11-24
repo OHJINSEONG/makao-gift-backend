@@ -1,13 +1,20 @@
 package megaptera.makaogift.controllers;
 
+import megaptera.makaogift.dtos.ErrorDto;
 import megaptera.makaogift.dtos.OrderRegisterDto;
+import megaptera.makaogift.dtos.OrderRegisterErrorDto;
 import megaptera.makaogift.dtos.OrderResultDto;
 import megaptera.makaogift.dtos.OrdersDto;
+import megaptera.makaogift.models.Order;
 import megaptera.makaogift.models.UserName;
 import megaptera.makaogift.services.OrderService;
 import megaptera.makaogift.services.UserService;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +38,7 @@ public class OrdersContoller {
     @ResponseStatus(HttpStatus.CREATED)
     public void create(
             @RequestAttribute("userName") UserName userName,
-            @RequestBody OrderRegisterDto orderRegisterDto
+            @Validated @RequestBody OrderRegisterDto orderRegisterDto
     ) {
         userService.order(orderRegisterDto.getTotalPrice(), userName);
         orderService.create(orderRegisterDto, userName);
@@ -47,8 +54,15 @@ public class OrdersContoller {
 
     @GetMapping("{id}")
     public OrderResultDto findOrder(
-            @RequestParam("id") Long id
+            @PathVariable("id") Long id
     ) {
-        return orderService.findOrder(id);
+        Order order = orderService.findOrder(id);
+        return order.toResultDto();
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorDto validateError(MethodArgumentNotValidException exception){
+        return new OrderRegisterErrorDto(exception.getFieldError().getDefaultMessage());
     }
 }

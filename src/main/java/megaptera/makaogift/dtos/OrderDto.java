@@ -5,12 +5,14 @@ public class OrderDto {
     private String manufacturer;
     private String title;
     private String receiver;
+    private String image;
 
-    public OrderDto(Long id, String manufacturer, String title, String receiver) {
+    public OrderDto(Long id, String manufacturer, String title, String receiver, String image) {
         this.id = id;
         this.manufacturer = manufacturer;
         this.title = title;
         this.receiver = receiver;
+        this.image = image;
     }
 
     public Long getId() {
@@ -27,5 +29,9 @@ public class OrderDto {
 
     public String getReceiver() {
         return receiver;
+    }
+
+    public String getImage() {
+        return image;
     }
 }

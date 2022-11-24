@@ -13,11 +13,11 @@ public class Product {
     @Id
     @GeneratedValue
     private Long id;
-    private String name;
     private Long price;
     private String title;
     private String manufacturer;
     private String imformation;
+    private String image;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
@@ -28,23 +28,45 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name
-            , Long price, String title
+    public Product(
+            Long price,
+            String title
             , String manufacturer
-            , String imformation) {
-        this.name = name;
+            , String imformation,
+            String image) {
         this.price = price;
         this.title = title;
         this.manufacturer = manufacturer;
         this.imformation = imformation;
+        this.image = image;
     }
 
     public ProductDto toDto() {
         return new ProductDto(id,
-                name,
                 price,
                 title,
                 manufacturer,
-                imformation);
+                imformation,
+                image);
+    }
+
+    public Long price() {
+        return price;
+    }
+
+    public String title() {
+        return title;
+    }
+
+    public String manufacturer() {
+        return manufacturer;
+    }
+
+    public String imformation() {
+        return imformation;
+    }
+
+    public String image() {
+        return image;
     }
 }

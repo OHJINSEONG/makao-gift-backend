@@ -1,6 +1,7 @@
 package megaptera.makaogift.models;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.persistence.AttributeOverride;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -39,6 +40,8 @@ public class Order {
 
     private String message;
 
+    private String image;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 
@@ -55,7 +58,7 @@ public class Order {
                  String title,
                  String address,
                  String receiver,
-                 String message) {
+                 String message, String image) {
         this.amount = amount;
         this.totalPrice = totalPrice;
         this.manufacturer = manufacturer;
@@ -64,14 +67,49 @@ public class Order {
         this.address = address;
         this.receiver = receiver;
         this.message = message;
+        this.image = image;
     }
 
-    public Long id() {
-        return id;
+       public OrderDto toDto() {
+        return new OrderDto(id,
+                manufacturer,
+                title,
+                receiver,
+                image);
     }
 
-    public UserName userName() {
-        return userName;
+    public OrderResultDto toResultDto() {
+        String dateOfPurchase = createdAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        return new OrderResultDto(id,
+                amount,
+                totalPrice,
+                manufacturer,
+                title,
+                receiver,
+                message,
+                address,
+                dateOfPurchase, image);
+    }
+
+    public Long amount() {
+        return amount;
+    }
+
+    public Long totalPrice() {
+        return totalPrice;
+    }
+
+    public String manufacturer() {
+        return manufacturer;
+    }
+
+    public String title() {
+        return title;
+    }
+
+    public String address() {
+        return address;
     }
 
     public String receiver() {
@@ -82,25 +120,7 @@ public class Order {
         return message;
     }
 
-    public OrderDto toDto() {
-        return new OrderDto(id,
-                manufacturer,
-                title,
-                receiver
-        );
-    }
-
-    public OrderResultDto toResultDto() {
-        String dateOfPurchase = String.valueOf(createdAt);
-
-        return new OrderResultDto(id,
-                amount,
-                totalPrice,
-                manufacturer,
-                title,
-                receiver,
-                message,
-                address,
-                dateOfPurchase);
+    public String image() {
+        return image;
     }
 }

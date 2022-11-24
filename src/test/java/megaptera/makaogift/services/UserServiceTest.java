@@ -32,10 +32,9 @@ class UserServiceTest {
         String name = "오진성";
         UserName userName = new UserName("ojseong0828");
         String password = "Wlstjdcjs153!";
-        String reconfirmPassword = "Wlstjdcjs153!";
         Long amount = 50000L;
 
-        User user = new User(1L, userName, "오진성", amount);
+        User user = new User(1L, userName, name, amount);
         user.changePassword(password, passwordEncoder);
 
         given(userRepository.findByUserName(userName))
@@ -61,8 +60,6 @@ class UserServiceTest {
         UserName userName = new UserName("ojseong0828");
         String password = "Wlstjdcjs153!";
         String reconfirmPassword = "Wlstjdcjs153!";
-        Long amount = 50000L;
-
 
         assertThrows(SignUpFailed.class, () -> {
             userService.create(name, userName, password, reconfirmPassword);
@@ -75,11 +72,29 @@ class UserServiceTest {
         UserName userName = new UserName("ojs0828");
         String password = "Wlstjdcjs153!";
         String reconfirmPassword = "Wlstjdcjs153!!";
-        Long amount = 50000L;
-
 
         assertThrows(SignUpFailed.class, () -> {
             userService.create(name, userName, password, reconfirmPassword);
         });
+    }
+
+    @Test
+    void order() {
+        String name = "오진성";
+        UserName userName = new UserName("ojseong0828");
+        String password = "Wlstjdcjs153!";
+        Long amount = 50000L;
+
+        User user = new User(1L, userName, name, amount);
+        user.changePassword(password, passwordEncoder);
+
+        given(userRepository.getByUserName(userName))
+                .willReturn(user);
+
+        assertThat(user.amount()).isEqualTo(50000L);
+
+        userService.order(20000L,userName);
+
+        assertThat(user.amount()).isEqualTo(30000L);
     }
 }

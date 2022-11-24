@@ -6,7 +6,6 @@ public class ProductsDto {
     private List<ProductDto> productDtos;
     private List<PageDto> pageDtos;
 
-
     public ProductsDto(List<ProductDto> productDtos, List<PageDto> pageDtos) {
         this.productDtos = productDtos;
         this.pageDtos = pageDtos;

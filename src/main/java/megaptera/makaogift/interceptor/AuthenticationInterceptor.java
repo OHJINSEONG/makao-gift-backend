@@ -15,7 +15,6 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         this.jwtUtil = jwtUtil;
     }
 
-
     @Override
     public boolean preHandle(HttpServletRequest request
             , HttpServletResponse response
@@ -23,7 +22,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 
         String authorization = request.getHeader("Authorization");
 
-        if(authorization == null || !authorization.startsWith("Bearer ")){
+        if (authorization == null || !authorization.startsWith("Bearer ")) {
             return true;
         }
 

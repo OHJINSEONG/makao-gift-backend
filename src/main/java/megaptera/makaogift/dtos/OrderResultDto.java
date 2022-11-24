@@ -10,6 +10,7 @@ public class OrderResultDto {
     private String message;
     private String address;
     private String dateOfPurchase;
+    private String image;
 
     public OrderResultDto(Long id,
                           Long amount,
@@ -19,7 +20,7 @@ public class OrderResultDto {
                           String receiver,
                           String message,
                           String address,
-                          String dateOfPurchase) {
+                          String dateOfPurchase, String image) {
         this.id = id;
         this.amount = amount;
         this.totalPrice = totalPrice;
@@ -29,6 +30,7 @@ public class OrderResultDto {
         this.message = message;
         this.address = address;
         this.dateOfPurchase = dateOfPurchase;
+        this.image = image;
     }
 
     public Long getId() {
@@ -65,5 +67,9 @@ public class OrderResultDto {
 
     public String getDateOfPurchase() {
         return dateOfPurchase;
+    }
+
+    public String getImage() {
+        return image;
     }
 }

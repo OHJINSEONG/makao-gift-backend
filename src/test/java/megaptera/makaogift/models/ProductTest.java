@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class ProductTest {
     @Test
     void toDto() {
-        Product product = new Product("name", 10000L, "한우", "한국", "맛있음");
+        Product product = new Product(10000L, "한우", "한국", "맛있음", "image");
 
         ProductDto productDto = product.toDto();
 
